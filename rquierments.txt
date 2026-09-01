@@ -1,8 +1,0 @@
-Flask
-Flask-SQLAlchemy
-gunicorn
-Werkzeug
-pandas
-numpy
-scikit-learn
-joblib
