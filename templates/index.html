@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Printing Prediction</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f4f7fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #4a90e2;
+        }
+
+        .button-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            background: #eef6ff;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 650px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>3D Printing Prediction</h1>
+    <p class="subtitle">
+        Enter the printing parameters below
+    </p>
+
+    <form method="POST">
+
+        <div class="form-grid">
+
+            <div class="input-group">
+                <label for="chamber_humidity_pct">
+                    Chamber Humidity (%)
+                </label>
+                <input
+                    type="number"
+                    step="any"
+                    id="chamber_humidity_pct"
+                    name="chamber_humidity_pct"
+                    placeholder="Example: 45.5"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="bed_temp_actual">
+                    Bed Temperature (°C)
+                </label>
+                <input
+                    type="number"
+                    step="any"
+                    id="bed_temp_actual"
+                    name="bed_temp_actual"
+                    placeholder="Example: 60"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="filament_diameter_mm">
+                    Filament Diameter (mm)
+                </label>
+                <input
+                    type="number"
+                    step="any"
+                    id="filament_diameter_mm"
+                    name="filament_diameter_mm"
+                    placeholder="Example: 1.75"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="vibration_y_g">
+                    Vibration Y (g)
+                </label>
+                <input
+                    type="number"
+                    step="any"
+                    id="vibration_y_g"
+                    name="vibration_y_g"
+                    placeholder="Example: 0.05"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="travel_speed_mm_s">
+                    Travel Speed (mm/s)
+                </label>
+                <input
+                    type="number"
+                    step="any"
+                    id="travel_speed_mm_s"
+                    name="travel_speed_mm_s"
+                    placeholder="Example: 120"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="temp_variance">
+                    Temperature Variance
+                </label>
+                <input
+                    type="number"
+                    step="any"
+                    id="temp_variance"
+                    name="temp_variance"
+                    placeholder="Example: 2.5"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="retraction_distance_mm">
+                    Retraction Distance (mm)
+                </label>
+                <input
+                    type="number"
+                    step="any"
+                    id="retraction_distance_mm"
+                    name="retraction_distance_mm"
+                    placeholder="Example: 5"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="retraction_speed_mm_s">
+                    Retraction Speed (mm/s)
+                </label>
+                <input
+                    type="number"
+                    step="any"
+                    id="retraction_speed_mm_s"
+                    name="retraction_speed_mm_s"
+                    placeholder="Example: 40"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="fan_speed_pct">
+                    Fan Speed (%)
+                </label>
+                <input
+                    type="number"
+                    step="any"
+                    id="fan_speed_pct"
+                    name="fan_speed_pct"
+                    placeholder="Example: 80"
+                    required
+                >
+            </div>
+
+        </div>
+
+        <div class="button-container">
+            <button type="submit">
+                Predict
+            </button>
+        </div>
+
+    </form>
+
+    {% if ans %}
+        <div class="result">
+            Prediction: {{ ans }}
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
+```
